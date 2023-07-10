@@ -5,8 +5,10 @@ const router = express.Router();
 
 // Create a Question schema and model
 const questionSchema = new mongoose.Schema({
+    category: { type: String, required: true},
     title: { type: String, required: true },
-    content: { type: String, required: true }
+    answerType: { type: String, required: true },
+    answer: { type: String, required: true }
   });
   
   const Question = mongoose.model('Question', questionSchema);
@@ -25,9 +27,9 @@ const questionSchema = new mongoose.Schema({
   
   // Create a new question
   router.post('/', (req, res) => {
-    const { title, content } = req.body;
+    const { category, title, answerType, answer } = req.body;
   
-    const question = new Question({ title, content });
+    const question = new Question({ category, title, answerType, answer });
   
     question.save()
       .then(() => {
@@ -41,9 +43,9 @@ const questionSchema = new mongoose.Schema({
   // Update a question
   router.patch('/:id', (req, res) => {
     const { id } = req.params;
-    const { title, content } = req.body;
+    const { tcategory, title, answerType, answer } = req.body;
   
-    Question.findByIdAndUpdate(id, { title, content })
+    Question.findByIdAndUpdate(id, { category, title, answerType, answer })
       .then(() => {
         res.status(200).json({ message: 'Question updated successfully' });
       })
