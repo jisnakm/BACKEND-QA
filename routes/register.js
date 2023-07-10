@@ -13,11 +13,11 @@ router.post("/", (req, res) => {
   user
     .save()
     .then(() => {
-      res.status(201).json({ status: "success",data:{user:{
+      res.status(201).json({ status: "success", data:{user:{
        email:user.email ,name:user.name, role:user.role, id:user.id}}});
     })
     .catch((error) => {
-      res.status(500).json({ error: "Failed to register user" });
+      res.status(500).json({ status: "failed", data:{error:"Failed to register user" }});
     });
 });
 

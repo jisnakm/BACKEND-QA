@@ -2,9 +2,9 @@
 
 ## POST http://localhost:3000/register
 
-**Header:** `'Content-Type: application/json'`
+### **Header:** `'Content-Type: application/json'`
 
-**Data:**
+### **Data:**
 
 ```
 {
@@ -15,7 +15,9 @@
 }
 ```
 
-**Response:** 
+### **Response:** 
+
+### success:
 
 ```
 {
@@ -27,6 +29,16 @@
             "role": "user",
             "id": "64ac192c241fb6f44eef0035"
         }
+    }
+}
+```
+### failed:
+
+```
+{
+    "status": "failed",
+    "data": {
+        "error": "Failed to register user"
     }
 }
 ```
