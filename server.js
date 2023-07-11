@@ -4,6 +4,7 @@ const mongoose = require ('mongoose');
 const registerRouter = require ('./routes/register.js');
 const loginRouter = require ('./routes/login.js');
 const questionRouter = require ('./routes/questions.js');
+const categoryRouter = require ('./routes/category.js')
 
 const app = express();
 app.use(express.json());
@@ -22,7 +23,7 @@ mongoose.connect('mongodb://localhost/qa', { useNewUrlParser: true, useUnifiedTo
 app.use('/register', registerRouter);
 app.use('/login', loginRouter);
 app.use('/questions', questionRouter);
-
+app.use('/category', categoryRouter);
 
 
 app.get('/', (req, res) => {
