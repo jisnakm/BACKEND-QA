@@ -13,6 +13,7 @@
     "password": "testpassword4",
     "role": "user"
 }
+
 ```
 
 ### **Response:** 
@@ -31,7 +32,9 @@
         }
     }
 }
+
 ```
+
 ### failed:
 
 ```
@@ -41,4 +44,50 @@
         "error": "Failed to register user"
     }
 }
+
+```
+
+## POST http://localhost:3000/login
+
+### **Header:** `'Content-Type: application/json`
+
+### **Data:**
+
+```
+{
+    "email": "m@gmail.com",
+    "password": "123"
+}
+
+```
+
+### **Response:** 
+
+### success:
+
+```
+{
+    "status": "success",
+    "data": {
+        "user": {
+            "email": "m@gmail.com",
+            "name": "midhun",
+            "role": "user",
+            "id": "64a2ef00260401b53db0d6c1"
+        }
+    }
+}
+
+```
+
+### failed:
+
+```
+{
+    "status": "failed",
+    "data": {
+        "error": "Invalid credentials"
+    }
+}
+
 ```
