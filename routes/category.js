@@ -24,6 +24,34 @@ router.get("/", (req, res) => {
 });
 
 // Create a new category
+router.post("/", (req, res) => {
+  const { title, level } = req.body;
+
+  const category = new Category({ title, level });
+
+  category
+    .save()
+    .then(() => {
+      res.status(201).json({
+        status: "success",
+        data: {
+          category: {
+            title: category.title,
+            level: category.level,
+            id: category.id,
+          },
+        },
+      });
+    })
+    .catch((error) => {
+      res.status(500).json({
+        status: "failed",
+        data: { error: "Failed to create question" },
+      });
+    });
+});
+
+//update a category
 router.patch("/:id", async(req, res) => {
   const { id } = req.params;
   const { title, level } = req.body;

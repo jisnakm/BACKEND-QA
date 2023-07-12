@@ -1,11 +1,12 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const Category = require("./category")
 
 const router = express.Router();
 
 // Create a Question schema and model
 const questionSchema = new mongoose.Schema({
-  category: { type: String, required: true },
+  category: { type: mongoose.Schema.Types.ObjectId, ref: 'Category' },
   title: { type: String, required: true },
   answerType: { type: String, required: true },
   answer: { type: String, required: true },
@@ -15,7 +16,7 @@ const Question = mongoose.model("Question", questionSchema);
 
 // Get all questions
 router.get("/", (req, res) => {
-  Question.find()
+  Question.find().populate('category')
     .then((questions) => {
       allquestions = questions.map(
         ({ id, category, title, answerType, answer }) => ({
