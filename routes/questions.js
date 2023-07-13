@@ -1,6 +1,8 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const Category = require("./category")
+const Category = require("./category");
+const User = require("../model/user");
+const authenticateToken = require("../util");
 
 const router = express.Router();
 
@@ -14,8 +16,10 @@ const questionSchema = new mongoose.Schema({
 
 const Question = mongoose.model("Question", questionSchema);
 
+
 // Get all questions
-router.get("/", (req, res) => {
+router.get("/", authenticateToken,(req, res) => {
+
   Question.find().populate('category')
     .then((questions) => {
       allquestions = questions.map(
@@ -43,7 +47,8 @@ router.get("/", (req, res) => {
 });
 
 // Create a new question
-router.post("/", (req, res) => {
+router.post("/", authenticateToken,(req, res) => {
+
   const { category, title, answerType, answer } = req.body;
 
   const question = new Question({ category, title, answerType, answer });
@@ -73,7 +78,7 @@ router.post("/", (req, res) => {
 });
 
 // Update a question
-router.patch("/:id", async (req, res) => {
+router.patch("/:id", authenticateToken, async(req, res) => {
   const { id } = req.params;
   const { category, title, answerType, answer } = req.body;
 
@@ -112,7 +117,7 @@ catch(error){
 });
 
 // Delete a question
-router.delete("/:id", (req, res) => {
+router.delete("/:id", authenticateToken,(req, res) => {
   const { id } = req.params;
 
   Question.findByIdAndDelete(id)

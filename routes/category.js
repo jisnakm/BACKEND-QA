@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const authenticateToken = require("../util");
 
 const router = express.Router();
 
@@ -13,7 +14,7 @@ const categorySchema = new mongoose.Schema({
 const Category = mongoose.model("Category", categorySchema);
 
 // Get all questions
-router.get("/", (req, res) => {
+router.get("/", authenticateToken,(req, res) => {
   Category.find()
     .then((category) => {
       res.status(200).json(category);
@@ -24,7 +25,7 @@ router.get("/", (req, res) => {
 });
 
 // Create a new category
-router.post("/", (req, res) => {
+router.post("/", authenticateToken,(req, res) => {
   const { title, level } = req.body;
 
   const category = new Category({ title, level });
@@ -52,7 +53,7 @@ router.post("/", (req, res) => {
 });
 
 //update a category
-router.patch("/:id", async(req, res) => {
+router.patch("/:id", authenticateToken,async(req, res) => {
   const { id } = req.params;
   const { title, level } = req.body;
 
@@ -82,7 +83,7 @@ router.patch("/:id", async(req, res) => {
 });
 
 // Delete a category
-router.delete("/:id", (req, res) => {
+router.delete("/:id", authenticateToken,(req, res) => {
   const { id } = req.params;
 
   Category.findByIdAndDelete(id)
