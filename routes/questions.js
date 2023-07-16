@@ -2,20 +2,10 @@ const express = require("express");
 const mongoose = require("mongoose");
 const Category = require("./category");
 const User = require("../model/user");
+const Question = require("../model/question");
 const authenticateToken = require("../util");
 
 const router = express.Router();
-
-// Create a Question schema and model
-const questionSchema = new mongoose.Schema({
-  category: { type: mongoose.Schema.Types.ObjectId, ref: 'Category' },
-  title: { type: String, required: true },
-  answerType: { type: String, required: true },
-  answer: { type: String, required: true },
-});
-
-const Question = mongoose.model("Question", questionSchema);
-
 
 // Get all questions
 router.get("/", authenticateToken,(req, res) => {

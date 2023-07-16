@@ -1,19 +1,11 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const Category = require("../model/category");
 const authenticateToken = require("../util");
 
 const router = express.Router();
 
-// Create a Category schema and model
-
-const categorySchema = new mongoose.Schema({
-  title: { type: String, required: true },
-  level: { type: String, enum: ["Begnner", "Intermediate", "Expert"] },
-});
-
-const Category = mongoose.model("Category", categorySchema);
-
-// Get all questions
+// Get all category
 router.get("/", authenticateToken,(req, res) => {
   Category.find()
     .then((category) => {
